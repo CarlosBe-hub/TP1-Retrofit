@@ -33,4 +33,24 @@ public class AuthRepository {
             }
         });
     }
+
+    public void CambiarPass(String token,String passwordActual, String passwordNuevo, ApiCallBack<String> callBack){
+       authService.CambioContraseña(token, passwordActual, passwordNuevo).enqueue(new Callback<Void>() {
+           @Override
+           public void onResponse(Call<Void> call, Response<Void> response) {
+               if (response.isSuccessful()) {
+                   callBack.onSuccess("Constraseña cambiada correctamente..");
+               } else {
+                   callBack.onError("Error al cambiar contraseña");
+               }
+           }
+
+           @Override
+           public void onFailure(Call<Void> call, Throwable t) {
+               callBack.onError("Error de conexion" + t.getMessage());
+
+           }
+       });
+
+    }
 }

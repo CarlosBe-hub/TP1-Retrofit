@@ -15,7 +15,21 @@
         android:id="@+id/nav_perfil"
         android:name="com.tech.tp1retrofit.ui.perfil.PerfilFragment"
         android:label="Perfil"
-        tools:layout="@layout/fragment_perfil" />
+        tools:layout="@layout/fragment_perfil">
+
+        <action
+            android:id="@+id/action_nav_perfil_to_cambiarPasswordFragment"
+            app:destination="@id/cambiarPasswordFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/cambiarPasswordFragment"
+        android:name="com.tech.tp1retrofit.CambiarPasswordFragment"
+        android:label="Cambiar Contraseña"
+        tools:layout="@layout/fragment_cambiar_password" />
+
+
 
     <fragment
         android:id="@+id/nav_inmuebles"

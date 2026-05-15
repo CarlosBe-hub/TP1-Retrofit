@@ -9,7 +9,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
+import com.tech.tp1retrofit.R;
 import com.tech.tp1retrofit.data.model.Propietario;
 import com.tech.tp1retrofit.databinding.FragmentPerfilBinding;
 
@@ -26,7 +28,7 @@ public class PerfilFragment extends Fragment {
                 Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
         });
 
-        // observer para cada vez que se obtenga un dato del paciente, actualiza los textfield
+        // observer para cada vez que se obtenga un dato del usuario, actualiza los textfield
         perfilViewModel.getPropietario().observe(getViewLifecycleOwner(), propietario -> {
             binding.etNombre.setText(propietario.getNombre());
             binding.etApellido.setText(propietario.getApellido());
@@ -48,6 +50,10 @@ public class PerfilFragment extends Fragment {
             propietarioActual.setEmail(binding.etEmail.getText().toString());
 
             perfilViewModel.actualizarPerfil(propietarioActual);
+        });
+
+        binding.btnCambiarPass.setOnClickListener(view -> {
+            Navigation.findNavController(view).navigate(R.id.action_nav_perfil_to_cambiarPasswordFragment);
         });
 
         perfilViewModel.obtenerPerfil();
