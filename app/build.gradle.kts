@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation("org.osmdroid:osmdroid-android:6.1.18")
 
     implementation("androidx.navigation:navigation-fragment:2.7.7")
     implementation("androidx.navigation:navigation-ui:2.7.7")
@@ -53,6 +54,7 @@ dependencies {
     implementation(libs.annotation)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.lifecycle.viewmodel)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
