@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import com.tech.tp1retrofit.R;
 
 public class PerfilFragment extends Fragment {
-    public View onCreate(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedIntanceState ){
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedIntanceState ){
         return inflater.inflate(R.layout.fragment_perfil, container, false);
     }
 }
