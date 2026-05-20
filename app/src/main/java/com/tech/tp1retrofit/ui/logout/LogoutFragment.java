@@ -12,7 +12,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.tech.tp1retrofit.LoginActivity;
+import com.tech.tp1retrofit.ui.auth.LoginActivity;
 import com.tech.tp1retrofit.databinding.FragmentLogoutBinding;
 
 public class LogoutFragment extends Fragment {

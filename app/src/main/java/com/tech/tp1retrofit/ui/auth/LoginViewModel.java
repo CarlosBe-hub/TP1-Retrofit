@@ -1,4 +1,4 @@
-package com.tech.tp1retrofit;
+package com.tech.tp1retrofit.ui.auth;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

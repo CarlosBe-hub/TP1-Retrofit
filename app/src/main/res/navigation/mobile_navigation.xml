@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/cambiarPasswordFragment"
-        android:name="com.tech.tp1retrofit.CambiarPasswordFragment"
+        android:name="com.tech.tp1retrofit.ui.auth.CambiarPasswordFragment"
         android:label="Cambiar Contraseña"
         tools:layout="@layout/fragment_cambiar_password" />
 
