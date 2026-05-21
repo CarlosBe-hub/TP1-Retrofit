@@ -8,22 +8,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tech.tp1retrofit.data.local.SessionManager;
-import com.tech.tp1retrofit.data.network.ApiCallBack;
-import com.tech.tp1retrofit.data.repository.AuthRepository;
+import com.tech.tp1retrofit.data.network.ApiClient;
+import com.tech.tp1retrofit.data.network.service.AuthService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CambiarPasswordViewModel extends AndroidViewModel {
-
-    private final AuthRepository authRepository;
+    private final AuthService authService;
     private final SessionManager sessionManager;
-    private final MutableLiveData<String> toastMessage = new MutableLiveData<>();
 
-    private final MutableLiveData<Boolean> exitoNavegacion = new MutableLiveData<>(); // Usamos este LiveData extra para avisarle al Fragment cuando volver a la pantalla anterior
+    private final MutableLiveData<String> toastMessage = new MutableLiveData<>();
+    private final MutableLiveData<Boolean> exitoNavegacion = new MutableLiveData<>();
 
     public CambiarPasswordViewModel(@NonNull Application application) {
         super(application);
-        authRepository = new AuthRepository();
-        sessionManager = new SessionManager(application);
+        this.authService = ApiClient.getClient().create(AuthService.class);
+        this.sessionManager = new SessionManager(application);
     }
+
     public LiveData<String> getToastMessage(){
         return toastMessage;
     }
@@ -55,16 +59,20 @@ public class CambiarPasswordViewModel extends AndroidViewModel {
             return;
         }
 
-        authRepository.CambiarPass(tokenParaUsar, passActual, passNuevo, new ApiCallBack<String>() {
+        authService.CambioContraseña(tokenParaUsar, passActual, passNuevo).enqueue(new Callback<Void>() {
             @Override
-            public void onSuccess(String result) {
-                toastMessage.setValue("La contraseña se actualizó con éxito");
-                exitoNavegacion.setValue(true);
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    toastMessage.setValue("La contraseña se actualizó con éxito");
+                    exitoNavegacion.setValue(true);
+                } else {
+                    toastMessage.setValue("Error al cambiar contraseña");
+                }
             }
 
             @Override
-            public void onError(String message) {
-                toastMessage.setValue(message);
+            public void onFailure(Call<Void> call, Throwable t) {
+                toastMessage.setValue("Error de conexión: " + t.getMessage());
             }
         });
     }

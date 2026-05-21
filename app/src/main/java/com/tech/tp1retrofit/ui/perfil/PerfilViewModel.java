@@ -7,22 +7,29 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.tech.tp1retrofit.data.local.SessionManager;
 import com.tech.tp1retrofit.data.model.Propietario;
-import com.tech.tp1retrofit.data.network.ApiCallBack;
-import com.tech.tp1retrofit.data.repository.PropietarioRepository;
+import com.tech.tp1retrofit.data.network.ApiClient;
+import com.tech.tp1retrofit.data.network.service.PropietarioService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PerfilViewModel extends AndroidViewModel {
-    private final PropietarioRepository propietarioRepository;
-    private final MutableLiveData<Propietario> propietario = new MutableLiveData<>();
+    private final PropietarioService propietarioService;
+    private final SessionManager sessionManager;
+    private final MutableLiveData<Propietario> propietarioMutable = new MutableLiveData<>();
     private final MutableLiveData<String> toastMessage = new MutableLiveData<>();
 
     public PerfilViewModel(@NonNull Application application) {
         super(application);
-        propietarioRepository = new PropietarioRepository(application);
+        this.propietarioService = ApiClient.getClient().create(PropietarioService.class);
+        this.sessionManager = new SessionManager(application);
     }
 
     public LiveData<Propietario> getPropietario(){
-        return propietario;
+        return propietarioMutable;
     }
 
     public LiveData<String> getToastMessage(){
@@ -30,23 +37,33 @@ public class PerfilViewModel extends AndroidViewModel {
     }
 
     public void obtenerPerfil() {
-        propietarioRepository.obtenerPerfil(new ApiCallBack<Propietario>() {
+        String token = sessionManager.obtenerToken();
+
+        if (token == null) {
+            toastMessage.setValue("No existe un token de autenticación");
+            return;
+        }
+
+        propietarioService.obtenerPerfil(token).enqueue(new Callback<Propietario>() {
             @Override
-            public void onSuccess(Propietario result) {
-                propietario.setValue(result);
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()) {
+                    propietarioMutable.setValue(response.body());
+                } else {
+                    toastMessage.setValue("Ocurrió un error al obtener el perfil");
+                }
             }
 
             @Override
-            public void onError(String message) {
-                toastMessage.setValue(message);
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                toastMessage.setValue("Error de conexión: " + t.getMessage());
             }
         });
     }
 
     public void actualizarPerfil(Propietario propietarioActualizado){
-
         if(propietarioActualizado.getNombre().trim().isEmpty()){
-            toastMessage.setValue("EL nombre es obligatorio");
+            toastMessage.setValue("El nombre es obligatorio");
             return;
         }
 
@@ -56,7 +73,7 @@ public class PerfilViewModel extends AndroidViewModel {
         }
 
         if(!propietarioActualizado.getEmail().contains("@")){
-            toastMessage.setValue("El formato de email es invalido");
+            toastMessage.setValue("El formato de email es inválido");
             return;
         }
 
@@ -66,20 +83,31 @@ public class PerfilViewModel extends AndroidViewModel {
         }
 
         if(propietarioActualizado.getTelefono().trim().isEmpty()){
-            toastMessage.setValue("El telefono es obligatorio");
+            toastMessage.setValue("El teléfono es obligatorio");
             return;
         }
 
-        propietarioRepository.actualizarPerfil(propietarioActualizado, new ApiCallBack<Propietario>() {
+        String token = sessionManager.obtenerToken();
+
+        if (token == null) {
+            toastMessage.setValue("No existe un token de autenticación");
+            return;
+        }
+
+        propietarioService.actualizarPropietario(token, propietarioActualizado).enqueue(new Callback<Propietario>() {
             @Override
-            public void onSuccess(Propietario result) {
-                propietario.setValue(result);
-                toastMessage.setValue("El perfil se actualizo con exito!");
+            public void onResponse(Call<Propietario> call, Response<Propietario> response) {
+                if (response.isSuccessful()) {
+                    propietarioMutable.setValue(response.body());
+                    toastMessage.setValue("El perfil se actualizó con éxito!");
+                } else {
+                    toastMessage.setValue("Ocurrió un error al actualizar el perfil");
+                }
             }
 
             @Override
-            public void onError(String message) {
-                toastMessage.setValue(message);
+            public void onFailure(Call<Propietario> call, Throwable t) {
+                toastMessage.setValue("Error de conexión: " + t.getMessage());
             }
         });
     }

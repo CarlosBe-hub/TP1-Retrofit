@@ -9,21 +9,17 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.tech.tp1retrofit.MainActivity;
 import com.tech.tp1retrofit.databinding.ActivityLoginBinding;
-import com.tech.tp1retrofit.data.local.SessionManager;
 
 public class LoginActivity extends AppCompatActivity {
 
     private ActivityLoginBinding binding;
     private LoginViewModel viewModel;
-    private SessionManager sessionManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        sessionManager = new SessionManager(this);
 
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         configurarObservadores();
@@ -37,13 +33,11 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void configurarObservadores() {
-        viewModel.getTokenResult().observe(this, token -> {
+        viewModel.getLoginSuccess().observe(this, exito -> {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
 
-            sessionManager.guardarToken(token);
-
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
         });
 
         viewModel.getErrorResult().observe(this, errorMensaje -> {
