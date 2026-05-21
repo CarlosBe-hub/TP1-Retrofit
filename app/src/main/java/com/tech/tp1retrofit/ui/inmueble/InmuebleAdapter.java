@@ -1,9 +1,11 @@
 package com.tech.tp1retrofit.ui.inmueble;
 
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -42,13 +44,19 @@ public class InmuebleAdapter extends RecyclerView.Adapter<InmuebleAdapter.ViewHo
 
         holder.binding.tvPrecio.setText("$" + inmueble.getPrecio());
 
-        String urlCompleta = ApiClient.BASE_URL  + "/" + inmueble.getImagen();
 
         Glide.with(holder.itemView.getContext())
-                .load(urlCompleta)
+                .load(inmueble.getUrlImagen())
                 .placeholder(R.drawable.ic_launcher_background)
                 .error(R.drawable.ic_launcher_background)
                 .into(holder.binding.ivInmueble);
+
+        holder.itemView.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("inmuebleSeleccionado", inmueble);
+
+            Navigation.findNavController(v).navigate(R.id.action_nav_inmuebles_to_detalleInmuebleFragment, bundle);
+        });
     }
 
     @Override

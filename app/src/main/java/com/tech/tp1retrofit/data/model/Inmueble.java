@@ -1,6 +1,8 @@
 package com.tech.tp1retrofit.data.model;
 
 import com.google.gson.annotations.SerializedName;
+import com.tech.tp1retrofit.data.network.ApiClient;
+
 import java.io.Serializable;
 
 public class Inmueble implements Serializable {
@@ -89,4 +91,9 @@ public class Inmueble implements Serializable {
 
     public int getAmbientes() { return ambientes; }
     public void setAmbientes(int ambientes) { this.ambientes = ambientes; }
+
+    public String getUrlImagen(){
+        return ApiClient.BASE_URL  + "/" + imagen;
+
+    }
 }
