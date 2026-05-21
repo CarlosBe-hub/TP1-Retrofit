@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.tech.tp1retrofit.R;
 import com.tech.tp1retrofit.data.model.Inmueble;
 import com.tech.tp1retrofit.databinding.FragmentDetalleInmuebleBinding;
 
