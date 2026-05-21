@@ -35,7 +35,13 @@
         android:id="@+id/nav_inmuebles"
         android:name="com.tech.tp1retrofit.ui.inmueble.InmuebleFragment"
         android:label="Inmuebles"
-        tools:layout="@layout/fragment_inmuebles" />
+        tools:layout="@layout/fragment_inmuebles">
+
+        <action
+            android:id="@+id/action_nav_inmuebles_to_detalleInmuebleFragment"
+            app:destination="@+id/detalleInmuebleFragment" />
+
+    </fragment>
 
     <fragment
         android:id="@+id/nav_inquilinos"
@@ -53,5 +59,11 @@
         android:id="@+id/nav_logout"
         android:name="com.tech.tp1retrofit.ui.logout.LogoutFragment"
         android:label="Cerrar Sesión" />
+
+    <fragment
+        android:id="@+id/detalleInmuebleFragment"
+        android:name="com.tech.tp1retrofit.ui.inmueble.DetalleInmuebleFragment"
+        android:label="Detalle del Inmueble"
+        tools:layout="@layout/fragment_detalle_inmueble" />
 
 </navigation>

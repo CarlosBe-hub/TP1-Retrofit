@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.tech.tp1retrofit.R;
@@ -25,7 +26,17 @@ public class InmuebleFragment extends Fragment {
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2);
         binding.rvInmuebles.setLayoutManager(gridLayoutManager);
 
-        inmuebleAdapter = new InmuebleAdapter();
+        inmuebleAdapter = new InmuebleAdapter(inmueble -> {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("inmubeleSeleccionado",inmueble);
+
+            if (getView() != null){
+                Navigation.findNavController(getView()).navigate(
+                        R.id.action_nav_inmuebles_to_detalleInmuebleFragment,
+                        bundle
+                );
+            }
+        });
         binding.rvInmuebles.setAdapter(inmuebleAdapter);
 
         //Hay que borrar la harcodeada..

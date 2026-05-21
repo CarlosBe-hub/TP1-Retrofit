@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F4F6F8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="40dp">
+
+        <ImageView
+            android:id="@+id/ivDetalleFoto"
+            android:layout_width="0dp"
+            android:layout_height="280dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clInfoPrincipal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="-40dp"
+            android:background="@drawable/rounded_input"
+            android:elevation="6dp"
+            android:padding="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivDetalleFoto">
+
+            <TextView
+                android:id="@+id/tvDetallePrecio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#00897B"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="$90000.0" />
+
+            <TextView
+                android:id="@+id/tvDetalleDireccion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="#374151"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDetallePrecio"
+                tools:text="Belgrano 218" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tvTituloCaracteristicas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="40dp"
+            android:text="Características Generales"
+            android:textColor="#1F2937"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clInfoPrincipal" />
+
+        <TextView
+            android:id="@+id/tvDetalleAmbientes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/rounded_input"
+            android:backgroundTint="#E0F2F1"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textColor="#00695C"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/tvDetalleTipo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloCaracteristicas"
+            tools:text="Ambientes: 5" />
+
+        <TextView
+            android:id="@+id/tvDetalleTipo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/rounded_input"
+            android:backgroundTint="#E0F2F1"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textColor="#00695C"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDetalleAmbientes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDetalleAmbientes"
+            app:layout_constraintTop_toTopOf="@+id/tvDetalleAmbientes"
+            tools:text="Tipo: Casa" />
+
+        <TextView
+            android:id="@+id/tvDetalleUso"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_input"
+            android:backgroundTint="#E0F2F1"
+            android:padding="16dp"
+            android:textAlignment="center"
+            android:textColor="#00695C"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetalleAmbientes"
+            app:layout_constraintStart_toStartOf="@+id/tvDetalleAmbientes"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetalleAmbientes"
+            tools:text="Uso: Residencial" />
+
+        <CheckBox
+            android:id="@+id/cbDisponibilidad"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/rounded_input"
+            android:backgroundTint="#E0F2F1"
+            android:padding="12dp"
+            android:text="Disponible"
+            android:textColor="#00695C"
+            android:textStyle="bold"
+            android:buttonTint="#00897B"
+            app:layout_constraintEnd_toEndOf="@+id/tvDetalleTipo"
+            app:layout_constraintStart_toStartOf="@+id/tvDetalleTipo"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetalleTipo"
+            tools:checked="true" />
+
+        <Button
+            android:id="@+id/btnContactar"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="#4285F4"
+            android:text="Contactar / Agendar Visita"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvDetalleUso" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
