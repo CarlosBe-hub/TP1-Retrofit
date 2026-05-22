@@ -29,7 +29,6 @@ public class InmuebleViewModel extends AndroidViewModel {
         super(application);
         this.sessionManager = new SessionManager(application);
         this.inmuebleService = ApiClient.getClient().create(InmuebleService.class);
-
     }
 
     public LiveData<List<Inmueble>> getInmuebles(){
@@ -53,7 +52,7 @@ public class InmuebleViewModel extends AndroidViewModel {
             public void onResponse(Call<List<Inmueble>> call, Response<List<Inmueble>> response) {
                 if(response.isSuccessful()){
                     inmuebleMutable.setValue(response.body());
-                }else{
+                } else {
                     toastMessage.setValue("Ocurrió un error al obtener la lista de inmuebles");
                 }
             }
@@ -65,6 +64,30 @@ public class InmuebleViewModel extends AndroidViewModel {
         });
     }
 
+    public void cambiarDisponibilidad(Inmueble inmueble, boolean nuevoEstado) {
+        String token = sessionManager.obtenerToken();
 
+        if (token == null) {
+            toastMessage.setValue("No existe un token de autenticación");
+            return;
+        }
 
+        inmueble.setEstado(nuevoEstado);
+
+        inmuebleService.cambiarDisponibilidad(token, inmueble).enqueue(new Callback<Inmueble>() {
+            @Override
+            public void onResponse(Call<Inmueble> call, Response<Inmueble> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    toastMessage.setValue("Disponibilidad actualizada con éxito");
+                } else {
+                    toastMessage.setValue("Error al actualizar la disponibilidad en el servidor");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Inmueble> call, Throwable t) {
+                toastMessage.setValue("Error de conexión: " + t.getMessage());
+            }
+        });
+    }
 }
