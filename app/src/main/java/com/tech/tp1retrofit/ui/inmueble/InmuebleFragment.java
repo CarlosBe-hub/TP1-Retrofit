@@ -9,6 +9,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.tech.tp1retrofit.data.model.Inmueble;
@@ -40,8 +41,8 @@ public class InmuebleFragment extends Fragment {
             inmuebleAdapter.setInmuebles(listaInmuebles);
         });
 
-        binding.fabAgregarInmueble.setOnClickListener(v ->{
-
+        binding.fabAgregarInmueble.setOnClickListener(v -> {
+            Navigation.findNavController(v).navigate(com.tech.tp1retrofit.R.id.action_nav_inmuebles_to_agregarInmuebleFragment);
         });
 
         inmuebleViewModel.obtenerListaInmuebles();
