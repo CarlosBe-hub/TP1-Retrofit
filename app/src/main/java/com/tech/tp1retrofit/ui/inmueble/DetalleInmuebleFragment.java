@@ -59,7 +59,10 @@ public class DetalleInmuebleFragment extends Fragment {
         });
 
         binding.btnContratos.setOnClickListener(v ->{
-            Navigation.findNavController(v).navigate(R.id.action_detalleInmuebleFragment_to_nav_contratos);
+            Bundle bundle = new Bundle();
+            bundle.putInt("idInmueble", inmuebleSeleccionado.getId());
+
+            Navigation.findNavController(v).navigate(R.id.action_detalleInmuebleFragment_to_nav_contratos, bundle);
         });
 
         return binding.getRoot();
