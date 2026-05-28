@@ -13,14 +13,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.tech.tp1retrofit.R;
+import com.tech.tp1retrofit.data.model.Contrato;
 import com.tech.tp1retrofit.data.model.Inmueble;
 import com.tech.tp1retrofit.databinding.FragmentDetalleInmuebleBinding;
+import com.tech.tp1retrofit.ui.contrato.ContratoViewModel;
 
 public class DetalleInmuebleFragment extends Fragment {
 
     private FragmentDetalleInmuebleBinding binding;
     private InmuebleViewModel viewModel;
     private Inmueble inmuebleSeleccionado;
+    private ContratoViewModel contratoViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -28,6 +31,7 @@ public class DetalleInmuebleFragment extends Fragment {
         binding = FragmentDetalleInmuebleBinding.inflate(inflater, container, false);
 
         viewModel = new ViewModelProvider(this).get(InmuebleViewModel.class);
+        contratoViewModel = new ViewModelProvider(this).get(ContratoViewModel.class);
 
         viewModel.getToastMessage().observe(getViewLifecycleOwner(), message -> {
             Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -59,11 +63,30 @@ public class DetalleInmuebleFragment extends Fragment {
         });
 
         binding.btnContratos.setOnClickListener(v ->{
-            Bundle bundle = new Bundle();
-            bundle.putInt("idInmueble", inmuebleSeleccionado.getId());
-
-            Navigation.findNavController(v).navigate(R.id.action_detalleInmuebleFragment_to_nav_contratos, bundle);
+            if(inmuebleSeleccionado != null){
+                contratoViewModel.obtenerContratos(inmuebleSeleccionado.getId());
+            }
         });
+
+        contratoViewModel.getContratos().observe(getViewLifecycleOwner(),contrato -> {
+            if(contrato != null){
+
+                contratoViewModel.limpiarContrato();
+
+                Bundle bundle = new Bundle();
+                bundle.putInt("idInmueble",inmuebleSeleccionado.getId());
+
+                Navigation.findNavController(binding.getRoot()).navigate(R.id.action_detalleInmuebleFragment_to_nav_contratos,bundle);
+
+            }
+        });
+        contratoViewModel.getToastMessage().observe(getViewLifecycleOwner(), mensaje -> {
+            if (mensaje != null && !mensaje.isEmpty()) {
+                Toast.makeText(getContext(), mensaje, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
 
         return binding.getRoot();
     }

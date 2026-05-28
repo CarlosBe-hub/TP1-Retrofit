@@ -1,7 +1,5 @@
 package com.tech.tp1retrofit.data.model;
 
-import com.tech.tp1retrofit.ui.inmueble.InmuebleViewModel;
-
 public class Contrato {
     private int idContrato;
     private String fechaInicio;

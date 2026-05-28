@@ -65,6 +65,9 @@ public class ContratoViewModel extends AndroidViewModel {
             }
         });
     }
+    public void limpiarContrato() {
+        contratoMutable.setValue(null);
+    }
 
 
 }

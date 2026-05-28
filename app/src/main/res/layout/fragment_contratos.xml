@@ -90,7 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Monto de alquiler"
-        android:textColor="#17325B"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/lblCodigo"
         app:layout_constraintTop_toBottomOf="@+id/valFechaFin" />
@@ -100,7 +100,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="$23000.0"
-        android:textColor="@color/black"
+        android:textColor="#17325B"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/lblCodigo"
         app:layout_constraintTop_toBottomOf="@+id/lblMonto" />
