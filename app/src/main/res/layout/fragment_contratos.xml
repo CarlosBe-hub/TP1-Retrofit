@@ -1,6 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvMainTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="Información del contrato"
+        android:textColor="#17325B"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/lblCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Código contrato"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvMainTitle" />
+
+    <TextView
+        android:id="@+id/valCodigo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="623"
+        android:textColor="#17325B"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/lblCodigo" />
+
+    <TextView
+        android:id="@+id/lblFechaInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Fecha inicio"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/valCodigo" />
+
+    <TextView
+        android:id="@+id/valFechaInicio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="05/01/2026"
+        android:textColor="#17325B"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/lblFechaInicio" />
+
+    <TextView
+        android:id="@+id/lblFechaFin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Fecha finalización"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/valFechaInicio" />
+
+    <TextView
+        android:id="@+id/valFechaFin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="05/01/2027"
+        android:textColor="#17325B"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/lblFechaFin" />
+
+    <TextView
+        android:id="@+id/lblMonto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Monto de alquiler"
+        android:textColor="#17325B"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/valFechaFin" />
+
+    <TextView
+        android:id="@+id/valMonto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="$23000.0"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/lblMonto" />
+
+    <TextView
+        android:id="@+id/lblInquilino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Inquilino"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/valMonto" />
+
+    <TextView
+        android:id="@+id/valInquilino"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tomas Peluca"
+        android:textColor="#17325B"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/lblInquilino" />
+
+    <TextView
+        android:id="@+id/lblInmueble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Inmueble"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/valInquilino" />
+
+    <TextView
+        android:id="@+id/valInmueble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Calle Falsa 123"
+        android:textColor="#17325B"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/lblCodigo"
+        app:layout_constraintTop_toBottomOf="@+id/lblInmueble" />
+
+    <Button
+        android:id="@+id/btnPagos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:backgroundTint="#17325B"
+        android:text="PAGOS"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/valInquilino"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/lblInquilino" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

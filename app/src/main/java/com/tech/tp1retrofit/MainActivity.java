@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_inicio, R.id.nav_perfil, R.id.nav_inmuebles,
-                R.id.nav_inquilinos, R.id.nav_contratos)
+                R.id.nav_inquilinos)
                 .setOpenableLayout(binding.drawerLayout)
                 .build();
 

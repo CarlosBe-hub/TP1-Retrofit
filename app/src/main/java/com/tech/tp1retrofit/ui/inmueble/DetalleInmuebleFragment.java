@@ -5,6 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +56,10 @@ public class DetalleInmuebleFragment extends Fragment {
                 boolean nuevoEstado = binding.cbDisponibilidad.isChecked();
                 viewModel.cambiarDisponibilidad(inmuebleSeleccionado, nuevoEstado);
             }
+        });
+
+        binding.btnContratos.setOnClickListener(v ->{
+            Navigation.findNavController(v).navigate(R.id.action_detalleInmuebleFragment_to_nav_contratos);
         });
 
         return binding.getRoot();
