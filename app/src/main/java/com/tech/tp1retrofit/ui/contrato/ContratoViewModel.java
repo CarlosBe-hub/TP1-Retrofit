@@ -1,8 +1,6 @@
 package com.tech.tp1retrofit.ui.contrato;
 
 import android.app.Application;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -50,11 +48,12 @@ public class ContratoViewModel extends AndroidViewModel {
 
             @Override
             public void onResponse(Call<Contrato> call, Response<Contrato> response) {
-                if(response.isSuccessful()) {
+                if(response.isSuccessful() && response.body() != null) {
                     contratoMutable.setValue(response.body());
                 } else if (response.code() == 404) {
+                    limpiarContrato();
                     toastMessage.setValue("No existe un contrato para este inmueble");
-                } else{
+                } else {
                     toastMessage.setValue("Ocurrio un error al obtener un contrato");
                 }
             }
@@ -65,9 +64,13 @@ public class ContratoViewModel extends AndroidViewModel {
             }
         });
     }
+
     public void limpiarContrato() {
         contratoMutable.setValue(null);
     }
 
-
+    public Integer getIdContratoActual() {
+        Contrato c = contratoMutable.getValue();
+        return (c != null) ? c.getIdContrato() : null;
+    }
 }
