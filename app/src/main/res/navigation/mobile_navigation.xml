@@ -42,9 +42,13 @@
 
     <fragment
         android:id="@+id/nav_inquilinos"
-        android:name="com.tech.tp1retrofit.ui.inquilino.InquilinoFragment"
+        android:name="com.tech.tp1retrofit.ui.inquilino.InquilinosFragment"
         android:label="Inquilinos"
-        tools:layout="@layout/fragment_inquilinos" />
+        tools:layout="@layout/fragment_inquilino" >
+        <action
+            android:id="@+id/action_nav_inquilinos_to_inquilinoDetalleFragment"
+            app:destination="@id/inquilinoDetalleFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_contratos"
@@ -83,5 +87,10 @@
         android:label="Pagos"
         tools:layout="@layout/fragment_pago"/>
 
+    <fragment
+        android:id="@+id/inquilinoDetalleFragment"
+        android:name="com.tech.tp1retrofit.ui.inquilino.InquilinoDetalleFragment"
+        android:label="Detalle del Inquilino"
+        tools:layout="@layout/fragment_inquilino_detalle" />
 
 </navigation>

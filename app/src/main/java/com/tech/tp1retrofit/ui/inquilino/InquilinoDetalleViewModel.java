@@ -1,6 +1,8 @@
-package com.tech.tp1retrofit.ui.contrato;
+package com.tech.tp1retrofit.ui.inquilino;
 
 import android.app.Application;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -8,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tech.tp1retrofit.data.local.SessionManager;
 import com.tech.tp1retrofit.data.model.Contrato;
+import com.tech.tp1retrofit.data.model.Inmueble;
+import com.tech.tp1retrofit.data.model.Inquilino;
 import com.tech.tp1retrofit.data.network.ApiClient;
 import com.tech.tp1retrofit.data.network.service.ContratoService;
 
@@ -15,28 +19,39 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ContratoViewModel extends AndroidViewModel {
+public class InquilinoDetalleViewModel extends AndroidViewModel {
 
-    private final MutableLiveData<Contrato> contratoMutable = new MutableLiveData<>();
+    private final MutableLiveData<Inquilino> inquilinoMutable = new MutableLiveData<>();
     private final MutableLiveData<String> toastMessage = new MutableLiveData<>();
     private final SessionManager sessionManager;
     private final ContratoService contratoService;
 
-    public ContratoViewModel(@NonNull Application application) {
+    public InquilinoDetalleViewModel(@NonNull Application application) {
         super(application);
         this.sessionManager = new SessionManager(application);
         this.contratoService = ApiClient.getClient().create(ContratoService.class);
     }
 
-    public LiveData<String> getToastMessage(){
+    public LiveData<Inquilino> getInquilinoMutable() {
+        return inquilinoMutable;
+    }
+
+    public LiveData<String> getToastMessage() {
         return toastMessage;
     }
 
-    public LiveData<Contrato> getContratos(){
-        return contratoMutable;
+    public void procesarArgumentos(Bundle arguments) {
+        if (arguments != null) {
+            Inmueble inmueble = (Inmueble) arguments.getSerializable("inmueble");
+            if (inmueble != null) {
+                obtenerContratoPorInmueble(inmueble.getId());
+            } else {
+                toastMessage.setValue("Error: No se recibió la información del inmueble");
+            }
+        }
     }
 
-    public void obtenerContratos(int idInmueble){
+    private void obtenerContratoPorInmueble(int idInmueble) {
         String token = sessionManager.obtenerToken();
 
         if (token == null) {
@@ -45,16 +60,17 @@ public class ContratoViewModel extends AndroidViewModel {
         }
 
         contratoService.obtenerContratoPorInmueble(token, idInmueble).enqueue(new Callback<Contrato>() {
-
             @Override
             public void onResponse(Call<Contrato> call, Response<Contrato> response) {
-                if(response.isSuccessful() && response.body() != null) {
-                    contratoMutable.setValue(response.body());
-                } else if (response.code() == 404) {
-                    limpiarContrato();
-                    toastMessage.setValue("No existe un contrato para este inmueble");
+                if (response.isSuccessful() && response.body() != null) {
+                    Contrato contrato = response.body();
+                    if (contrato.getInquilino() != null) {
+                        inquilinoMutable.setValue(contrato.getInquilino());
+                    } else {
+                        toastMessage.setValue("Este contrato no tiene un inquilino asignado");
+                    }
                 } else {
-                    toastMessage.setValue("Ocurrio un error al obtener un contrato");
+                    toastMessage.setValue("No se pudo obtener el contrato del servidor");
                 }
             }
 
@@ -63,14 +79,5 @@ public class ContratoViewModel extends AndroidViewModel {
                 toastMessage.setValue("Error de conexión: " + t.getMessage());
             }
         });
-    }
-
-    public void limpiarContrato() {
-        contratoMutable.setValue(null);
-    }
-
-    public Integer getIdContratoActual() {
-        Contrato c = contratoMutable.getValue();
-        return (c != null) ? c.getIdContrato() : null;
     }
 }

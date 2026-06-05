@@ -9,5 +9,8 @@ import retrofit2.http.Path;
 
 public interface ContratoService {
     @GET("/api/contratos/inmueble/{id}")
-    Call<Contrato> obtenerContrato(@Path("id") int id, @Header("Authorization") String token);
+    Call<Contrato> obtenerContratoPorInmueble(
+            @Header("Authorization") String token,
+            @Path("id") int id
+    );
 }

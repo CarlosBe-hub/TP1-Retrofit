@@ -33,4 +33,7 @@ public interface InmuebleService {
             @Part MultipartBody.Part imagen,
             @Part("inmueble") RequestBody inmuebleBody
     );
+
+    @GET("/api/Inmuebles/GetContratoVigente")
+    Call<List<Inmueble>> obtenerInmueblesAlquilados(@Header("Authorization") String token);
 }
